@@ -1,11 +1,11 @@
 #.PHONY: deps clean build
-.PHONY: clean build
+.PHONY: deps clean build
 
 #deps:
-#	go get -u ./hello-world
+#	go get -u ./home-state
 
 clean: 
-	rm -rf ./hello-world/hello-world
+	rm -rf ./home-state/bin
 	
 build:
-	GOOS=linux GOARCH=amd64 go build -o hello-world/hello-world ./hello-world
+	GOOS=linux GOARCH=amd64 go build -o home-state/bin ./home-state
