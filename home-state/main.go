@@ -11,7 +11,7 @@ import (
 )
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	sess := session.Must(session.NewSessionWithOptions(session.Options{Profile: "s3-lambda"}))
+	sess := session.Must(session.NewSession())
 	downloader := s3manager.NewDownloader(sess)
 	buffer := aws.NewWriteAtBuffer([]byte{})
 	// _ -> numBytes

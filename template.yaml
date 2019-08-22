@@ -11,13 +11,18 @@ Globals:
     Timeout: 5
 
 Resources:
-  HelloWorldFunction:
+  HomeStateFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: home-state/
       Handler: bin
       Runtime: go1.x
       Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+      Policies: 
+      - S3ReadPolicy:
+          BucketName: home-state
+      - S3CrudPolicy:
+          BucketName: home-state
       Events:
         CatchAll:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
