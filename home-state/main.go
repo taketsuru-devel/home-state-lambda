@@ -8,10 +8,9 @@ import (
 )
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-    s3buf := util.S3GetBuffer{}
-    err := s3buf.Get("config/ip.txt")
+    buffer, err := util.S3Get("config/ip.txt")
 	return events.APIGatewayProxyResponse{
-		Body:       string(s3buf.Buffer.Bytes()),
+		Body:       string(buffer.Bytes()),
 		StatusCode: 200,
 	}, err
 }
