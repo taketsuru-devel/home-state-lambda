@@ -1,12 +1,15 @@
 package util
 
 import (
+    "io"
 	//"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
+
+const BUCKETNAME = "home-state"
 
 func S3Get (key string) (*aws.WriteAtBuffer, error) {
 	sess := session.Must(session.NewSession())
@@ -15,10 +18,24 @@ func S3Get (key string) (*aws.WriteAtBuffer, error) {
 	// _ -> numBytes
 	_, err := downloader.Download(buffer,
 		&s3.GetObjectInput{
-			Bucket: aws.String("home-state"),
+			Bucket: aws.String(BUCKETNAME),
 			Key:    aws.String(key),
 		})
 
     return buffer, err
+}
+
+func S3Put (key string, body io.Reader) error {
+	sess := session.Must(session.NewSession())
+	uploader := s3manager.NewUploader(sess)
+	// _ -> type UploadOutput
+    _, err := uploader.Upload(
+		&s3manager.UploadInput{
+			Bucket: aws.String(BUCKETNAME),
+			Key:    aws.String(key),
+            Body:   body,
+		})
+
+    return err
 }
 
