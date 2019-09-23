@@ -26,7 +26,7 @@ func TestS3Access(t *testing.T) {
         S3UtilTestSetting.S3GetError = errors.New("error")
         var p = Param{"test",[]string{""}}
         buf, err := S3Access("tekito", p)
-        if string(buf.Bytes()) != "" {
+        if string(buf) != "" {
 			t.Fatal("should be empty")
         }
         if err == nil {

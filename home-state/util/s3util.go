@@ -1,6 +1,7 @@
 package util
 
 import (
+    "bytes"
     "io"
 	//"fmt"
 	"github.com/aws/aws-sdk-go/aws"
@@ -54,3 +55,13 @@ func S3Put (key string, body io.Reader) error {
     return err
 }
 
+func S3Append (key string, appendLine string) error {
+    buf, err := S3Get(key)
+    if err != nil {
+        return err
+    }
+    base := buf.Bytes()
+    base = append(base, []byte(appendLine)...)
+    err = S3Put(key, bytes.NewBuffer(base))
+    return err
+}
