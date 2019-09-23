@@ -9,10 +9,11 @@ Description: >
 Globals:
   Function:
     Timeout: 5
+  #not affected, set response is in lambda resource
   Api:
     Cors:
-      AllowMethods: "'OPTIONS,POST'"
-      AllowHeaders: "'Content-Type'"
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       AllowOrigin: "'*'"
 
 Resources:

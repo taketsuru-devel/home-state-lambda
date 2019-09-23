@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	//"fmt"
     //"bytes"
     //"net/url"
@@ -9,19 +10,34 @@ import (
     "github.com/followedwind/home-state-lambda/home-state/util"
 )
 
+
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
-    command := "connection_check"
-    //param := url.Values{}
-    //param.Set("command", command)
-    param := make(map[string]interface{})
-    param["command"] = command
-    res, err := util.HomeAccess(command, param)
+    var requestParam util.Param
+    json.Unmarshal([]byte(request.Body), &requestParam)
 
-	return events.APIGatewayProxyResponse{
-		Body:       string(res),
-		StatusCode: 200,
-	}, err
+    command := requestParam.Command
+
+    if command == "etherwake" {
+        res, err := util.HomeAccess(command, requestParam)
+		return events.APIGatewayProxyResponse{
+			Body:       string(res),
+			StatusCode: 200,
+		}, err
+    } else {
+        res, err := util.S3Access(command, requestParam)
+		return events.APIGatewayProxyResponse{
+            Headers: map[string]string{
+                "Access-Control-Allow-Methods": "OPTIONS,POST",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "origin,Accept,Authorization,Content-Type",
+                "Content-Type":                 "application/x-www-form-urlencoded, application/json",
+            },
+            Body:       string(res),
+			StatusCode: 200,
+		}, err
+    }
+
 }
 
 func main() {

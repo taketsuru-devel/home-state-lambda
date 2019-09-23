@@ -2,7 +2,7 @@ package util
 
 import (
 	"bytes"
-	"fmt"
+	//"fmt"
     //"net/url"
     "net/http"
     "io/ioutil"
@@ -10,7 +10,7 @@ import (
 )
 
 //func HomeAccess (subdir string, param url.Values) ([]byte, error) {
-func HomeAccess (subdir string, param map[string]interface{}) ([]byte, error) {
+func HomeAccess (subdir string, param Param) ([]byte, error) {
 
     buf, err := S3Get("config/endpoint.txt")
     str := string(buf.Bytes())
@@ -21,8 +21,8 @@ func HomeAccess (subdir string, param map[string]interface{}) ([]byte, error) {
     //param挟む
     client := &http.Client{}
     resp, _ := client.Do(req)
-    fmt.Println(str)
-    fmt.Println(param["command"])
+    //fmt.Println(str)
+    //fmt.Println(param["command"])
     defer resp.Body.Close()
 
     byteArray, _ := ioutil.ReadAll(resp.Body)

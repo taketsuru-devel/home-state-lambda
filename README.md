@@ -184,3 +184,6 @@ Here are a few ideas that you can use to get more acquainted as to how this over
 Next, you can use the following resources to know more about beyond hello world samples and how others structure their Serverless applications:
 
 * [AWS Serverless Application Repository](https://aws.amazon.com/serverless/serverlessrepo/)
+
+test
+curl -XPOST -d'{"command":"connection_check"}' http://localhost:3000/home-state
