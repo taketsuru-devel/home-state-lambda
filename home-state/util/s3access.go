@@ -14,11 +14,16 @@ func S3Access (subdir string, param Param) ([]byte, error) {
 
     //sample
     buf, err := S3Get("data/"+param.Params[0]+".csv")
+    if err != nil {
+        return []byte{}, err
+    }
     str := string(buf.Bytes())
     r := csv.NewReader(strings.NewReader(str))
-    result, _ := r.ReadAll()
+    result, err := r.ReadAll()
+    if err != nil {
+        return []byte{}, err
+    }
+    json_result, err := json.Marshal(result)
 
-    json, _ := json.Marshal(result)
-
-    return json, err
+    return json_result, err
 }
