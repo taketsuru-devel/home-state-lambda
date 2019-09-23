@@ -18,9 +18,15 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 
     command := requestParam.Command
 
-    if command == "etherwake" {
+    if command == "etherwake" || command == "aircon" {
         res, err := util.HomeAccess(command, requestParam)
 		return events.APIGatewayProxyResponse{
+            Headers: map[string]string{
+                "Access-Control-Allow-Methods": "OPTIONS,POST",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "origin,Accept,Authorization,Content-Type",
+                "Content-Type":                 "application/x-www-form-urlencoded, application/json",
+            },
 			Body:       string(res),
 			StatusCode: 200,
 		}, err
