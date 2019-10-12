@@ -9,7 +9,13 @@ import (
     "github.com/aws/aws-sdk-go/service/cloudwatch"
 )
 
-func GetBilling() *[]*cloudwatch.Datapoint {
+type BillingType struct {
+    Cost float64 `json:"cost"`
+    Day int `json:"day"`
+}
+
+//func GetBilling() *[]*cloudwatch.Datapoint {
+func GetBilling() *[]BillingType {
     //請求はバージニア北部(us-east-1)からしか取れない
     client := cloudwatch.New(session.New(), aws.NewConfig().WithRegion("us-east-1"))
 
@@ -39,9 +45,15 @@ func GetBilling() *[]*cloudwatch.Datapoint {
         fmt.Println(err)
     }
 
-    ret := resp.Datapoints
-    sort.Slice(ret, func(i int, j int) bool {
-        return ret[i].Timestamp.Before(*(ret[j].Timestamp))
+    datas := resp.Datapoints
+    sort.Slice(datas, func(i int, j int) bool {
+        return datas[i].Timestamp.Before(*(datas[j].Timestamp))
     })
+
+    ret := make([]BillingType, len(datas))
+    for i,v := range datas {
+        ret[i].Cost = *(v.Maximum)
+        ret[i].Day = v.Timestamp.Day()
+    }
     return &ret
 }

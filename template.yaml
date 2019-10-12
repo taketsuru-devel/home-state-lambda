@@ -25,6 +25,7 @@ Resources:
       Runtime: go1.x
       Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
       Policies: 
+      - CloudWatchFullAccess
       - S3ReadPolicy:
           BucketName: home-state
       - S3CrudPolicy:
