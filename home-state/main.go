@@ -29,6 +29,9 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
     } else if command == "log" {
         logs := util.LogGet(5)
         res, err = json.Marshal(*logs)
+    } else if command == "billing" {
+        billings := util.GetBilling()
+        res, err = json.Marshal(*billings)
     } else {
         res, err = util.S3Access(command, requestParam)
     }

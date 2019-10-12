@@ -16,7 +16,7 @@
   version = "v1.12.1"
 
 [[projects]]
-  digest = "1:dea3fd3416065bec10f68d16f2ee1c1a88a57b3d8633ed8bf5deced504a5f5cb"
+  digest = "1:6832a15a15b366ef918e5928bd44d0a1fff8568b412ba1243d3c65cde865a352"
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -54,6 +54,7 @@
     "private/protocol/rest",
     "private/protocol/restxml",
     "private/protocol/xml/xmlutil",
+    "service/cloudwatch",
     "service/dynamodb",
     "service/dynamodb/dynamodbattribute",
     "service/dynamodb/dynamodbiface",
@@ -117,7 +118,7 @@
     "github.com/aws/aws-lambda-go/lambda",
     "github.com/aws/aws-sdk-go/aws",
     "github.com/aws/aws-sdk-go/aws/session",
-    "github.com/aws/aws-sdk-go/service/dynamodb",
+    "github.com/aws/aws-sdk-go/service/cloudwatch",
     "github.com/aws/aws-sdk-go/service/s3",
     "github.com/aws/aws-sdk-go/service/s3/s3manager",
     "github.com/guregu/dynamo",
