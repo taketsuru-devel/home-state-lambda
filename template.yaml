@@ -29,6 +29,10 @@ Resources:
           BucketName: home-state
       - S3CrudPolicy:
           BucketName: home-state
+      - DynamoDBReadPolicy:
+          TableName: home-state-log
+      - DynamoDBCrudPolicy:
+          TableName: home-state-log
       Events:
         CatchAll:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
