@@ -21,3 +21,12 @@ func LogPut(evt LogType) error {
 
 	return table.Put(evt).Run()
 }
+
+func LogGet(limit int64) *[]LogType{
+    ddb := dynamo.New(session.New(), aws.NewConfig().WithRegion("ap-northeast-1"))
+	table := ddb.Table("home-state-log")
+
+    var logs []LogType
+    table.Get("Event",0).Order(false).Limit(limit).All(&logs)
+    return &logs
+}

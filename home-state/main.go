@@ -26,6 +26,9 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
     var err error
     if command == "etherwake" || command == "aircon" || command == "picture"  {
         res, err = util.HomeAccess(command, requestParam)
+    } else if command == "log" {
+        logs := util.LogGet(5)
+        res, err = json.Marshal(*logs)
     } else {
         res, err = util.S3Access(command, requestParam)
     }
