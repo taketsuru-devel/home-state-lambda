@@ -1,5 +1,14 @@
 # home-state
 
+- 家の温湿度を計測したりetherwakeしたりエアコン送風したり
+- cloudformationを使ってみている
+- 表側はvueで別ソース
+- 温湿度の更新はかなり非効率なことやってる
+ - 料金的に問題ないので現状維持
+ - 今ならdynamoかlightsail内のmysqlか
+
+以下オリジナル
+
 This is a sample template for home-state - Below is a brief explanation of what we have generated for you:
 
 ```bash
