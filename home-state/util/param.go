@@ -1,6 +1,6 @@
 package util
 
 type Param struct {
-    Command string
-    Params []string
+	Command string
+	Params  []string
 }
